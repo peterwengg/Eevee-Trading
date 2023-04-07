@@ -1,0 +1,43 @@
+body {
+  /* background: #333333;
+  -webkit-perspective: 800px;
+  perspective: 800px; */
+  background-color: rgb(6, 17, 33);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#nav{
+  background: linear-gradient(to right, #0a202e, #092030);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+.cube {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+#top {
+  background-color:#081f2e;
+  background-size: cover;
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+}
+
+
+/* #content {
+  background-size: cover;
+  background-image: url("../images/homepageWithLogin/home.jpg");
+  -webkit-transform-origin: 50% 0%;
+  transform-origin: 50% 0%;
+} */
+
+
+/* .words{
+  text-align:center;
+  font-size:20px;
+  line-height:30px;
+} */
+
