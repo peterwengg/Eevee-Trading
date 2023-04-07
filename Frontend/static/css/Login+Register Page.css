@@ -1,0 +1,80 @@
+html,body{
+background-image: url("../images/homepageWithLogin/home.jpg");
+background-size: cover;
+background-repeat: repeat;
+height: 100%;
+font-family:Arial, Helvetica, sans-serif;
+
+}
+
+.container{
+height: 100%;
+align-content: center;
+}
+
+.card{
+height: 370px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+
+.card-header h3{
+color: white;
+}
+
+#icon{
+    width:100%;
+}
+
+
+.input-group-prepend span{
+width: 50px;
+background-color: #FFC312;
+color: black;
+border:0 !important;
+}
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+#forms{
+    margin:12px;
+    width:95%;
+}
+
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+float: right;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
