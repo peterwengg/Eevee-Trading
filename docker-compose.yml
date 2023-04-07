@@ -1,0 +1,133 @@
+version: "3.8"
+
+
+services:
+  ##################################
+  # App: The App Interface
+  ##################################
+  interface:
+    build:
+      context: ./
+      dockerfile: app.Dockerfile
+    image: giumgium/app:eevee
+    restart: always
+    depends_on:
+      - price
+      - authenticate
+      # - swap
+      - topup
+      - make_transaction
+    environment:
+      # price_URL: http://price:5000/price
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - 5000:5000 
+
+      # : - (- is for microservice port to expose it to localhost port of #)
+      
+  ##################################
+  # Price: The Price microservice
+  ##################################
+  price:
+    build:
+      context: ./
+      dockerfile: price.Dockerfile
+    image: giumgium/price:eevee
+    restart: always
+    environment:
+      # price_URL: http://price:5000/price
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - 5001:5001
+
+
+  ##################################
+  # Topup: The Topup microservice
+  ##################################
+  topup:
+    build: 
+      context: ./
+      dockerfile: topup.Dockerfile
+    image: giumgium/topup:eevee
+    restart: always
+    environment:
+      # topup_URL: http://topup:5000/process_topup
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - 5005:5005
+
+      
+  ##################################
+  # Swap: The Swap microservice
+  ##################################
+  swap:
+    build: 
+      context: ./
+      dockerfile: swap.Dockerfile
+    image: giumgium/swap:eevee
+    restart: always
+    depends_on:
+      - price
+    environment:
+      # swap_URL: http://swap:5000/swap
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - 5004:5004
+
+  ##################################
+  # Authenticate: The Authenticate microservice
+  ##################################
+  authenticate:
+    build: 
+      context: ./
+      dockerfile: authenticate.Dockerfile
+    image: giumgium/authenticate:eevee
+    restart: always
+    environment:
+      # authenticate_URL: http://authenticate:5000/authenticate
+      HOST: host.docker.internal
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - 5050:5050
+
+    
+  ##################################
+  # Make Transaction: The Make Transaction microservice
+  ##################################
+  make_transaction:
+    build: 
+      context: ./
+      dockerfile: make_transaction.Dockerfile
+    image: giumgium/maketransaction:eevee
+    restart: always
+    depends_on:
+      - price
+    environment:
+      # makeTransaction_URL: http://makeTransaction:5000/makeTransaction
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - 5010:5010
+
+  checkOrder:
+    build: 
+      context: ./
+      dockerfile: checkOrder.Dockerfile
+    image: giumgium/checkorder:eevee
+    restart: always
+    environment:
+      # makeTransaction_URL: http://makeTransaction:5000/makeTransaction
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - 5200:5200
+
+  access_wallet:
+    build: 
+      context: ./
+      dockerfile: access_wallet.Dockerfile
+    image: giumgium/access_wallet:eevee
+    restart: always
+    environment:
+      # makeTransaction_URL: http://makeTransaction:5000/makeTransaction
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - 5100:5100
