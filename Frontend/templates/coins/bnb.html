@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./images/logo.png">
+  <title>Binance</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/Light-Dark.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/homepageWithLogin.css')}}">
+  <!-- Axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' rel='stylesheet'
+    integrity='sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' crossorigin='anonymous'>
+  <!--Stock Chart-->
+  <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+  <!-- <script type="module" src="{{url_for('static', filename='js/coins/cardano.mjs')}}"></script> -->
+  <style>
+      body {
+        background-color: rgb(6, 17, 33);
+      }
+      
+    #graph {
+      width: 100%;
+      height: 50%;
+      margin: 0;
+      padding: 0;
+    }
+
+    th,
+    td,
+    table {
+      border: 1px solid white
+    }
+
+    td,
+    th {
+      padding: 5px;
+      text-align: center;
+      color: white;
+    }
+
+    small {
+      color: white
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <nav id="nav" style="background: linear-gradient(to right, #0e2e43, #0e2e43); " class="navbar navbar-expand-lg bg-light sticky-top">
+    <div class="container-fluid" id="header">
+      <a class="navbar-brand text-white" href="http://host.docker.internal:5000/home"><img
+          src="{{url_for('static', filename='images/eevee_logo.png')}}" width="30" height="30" class="d-inline-block align-top" alt=""></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="http://host.docker.internal:5000/marketplace">Marketplace 🛒</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="http://host.docker.internal:5000/profile">Profile 👤</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="http://host.docker.internal:5000/swap">Coin Swap 💳</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" id="logout" href="http://host.docker.internal:5000/login">Sign-out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid" id="main">
+    <div class="row">
+      <div class="col-xl-6 col-sm-12" id="topdetails"></div>
+    </div>
+    <div id="graph1" class="row">
+      <div id="graph"></div>
+    </div>
+    <div class="row">
+      <h1 id="price" style="color:white; padding: 15px;"></h1>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-sm-12">
+        <div id="app"></div>
+        <div id="buysellid"></div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-12">
+      <h3 style="color:white;">List of Cryptocurrencies</h3>
+      <ol id="cryptolinks" style="color:white">
+        <li>
+          <a href="BTC">Bitcoin (BTC) <span><img src="{{url_for('static', filename='images/coins/btc.png')}}" alt="" class="img"></span></a>
+        </li>
+        <li>
+          <a href="ETH">Ethereum (ETH) <span><img src="{{url_for('static', filename='images/coins/eth.png')}}" alt="" class="img"></span></a>
+        </li>
+        <li>
+          <a href="BNB">Binance (BNB) <span><img src="{{url_for('static', filename='images/coins/bnb.png')}}" alt="" class="img"></span></a>
+        </li>
+        <li>
+          <a href="DOGE">DOGE Coin (Doge) <span><img src="{{url_for('static', filename='images/coins/doge.png')}}" alt="" class="img"></span></a>
+        </li>
+        <li>
+          <a href="SOL">Solana (SOL) <span><img src="{{url_for('static', filename='images/coins/sol.png')}}" alt="" class="img"></span></a>
+        </li>
+        <li>
+          <a href="ADA">Cardano (ADA) <span><img src="{{url_for('static', filename='images/coins/ADA.png')}}" alt="" class="img"></span></a>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <footer class="text-center" style="font-size:12px">
+    <p class="text-muted mb-0 small">Copyright ©EEVEE Trading 2023</p>
+  </footer>
+  <script>
+    finalList = []
+    function getBNB(currency) {
+      var BNBdataAPI = 'https://min-api.cryptocompare.com/data/v2/histohour?fsym=BNB'
+      requiredList = []
+      axios.get(BNBdataAPI, {
+        params: {
+          tsym: currency,
+          limit: 2000
+        }
+      })
+        .then(response => {
+          accessData = response.data.Data.Data
+          for (data in accessData) {
+            time = accessData[data].time
+            high = accessData[data].high
+            low = accessData[data].low
+            open1 = accessData[data].open
+            close1 = accessData[data].close
+            requiredList.push([time, open1, close1, high, low])
+          }
+
+          requiredList = Array.from(requiredList)
+          return foo(requiredList)
+
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+
+    }
+    function foo(data) {
+
+      timeArray = []
+      openArray = []
+      closeArray = []
+      lowArray = []
+      highArray = []
+      for (arrays of data) {
+        intDate = arrays[0] * 1000
+        fulldate = new Date(intDate)
+        fulldate = fulldate.toLocaleString('sv')
+        final = fulldate.split('GMT')[0]
+        timeArray.push(final)
+        openArray.push(arrays[1])
+        closeArray.push(arrays[2])
+        lowArray.push(arrays[3])
+        highArray.push(arrays[4])
+      }
+
+      var modeBarButtons = [["zoomIn2d", "zoomOut2d", "pan2d", "select2d"]]
+      var trace1 = {
+        x: timeArray, close: closeArray, decreasing: { line: { color: '#FF0000' } }, high: highArray, increasing: { line: { color: '#00FF00' } }, low: lowArray, open: openArray, line: { color: 'rgba(31,119,180,1)' }, type: 'candlestick', xaxis: 'x', yaxis: 'y'
+      }
+
+      var data = [trace1]
+
+      var layout = {
+        dragmode: 'zoom',
+        margin: { r: 10, r: 25, b: 40, l: 60 },
+        showlegend: false,
+        xaxis: {
+          autorange: true,
+          domain: [0, 1],
+          range: [timeArray[0], timeArray[timeArray.length - 1]],
+          rangeslider: { range: [timeArray[0], timeArray[timeArray.length - 1]] },
+          title: 'Date',
+          type: 'date'
+        },
+        yaxis: {
+          autorange: true,
+          domain: [0, 1],
+          range: [Math.min(highArray), Math.max(highArray)],
+          type: 'linear',
+          title: 'Value'
+        },
+        // title: {
+        //   text: 'Cardano',
+        //   font: {
+        //     size: 28,
+        //   }
+        // }
+      }
+      Plotly.newPlot('graph', data, layout, { modeBarButtons: modeBarButtons })
+    }
+
+    getBNB('USD', 10)
+
+    function getBNBSinglePrice() {
+      var apiKey = 'b6d25f96f139bef5f924e987f529a010daf1b3f4faf934b6a02d671becf8ac3d'
+      singlePriceUrl = 'https://min-api.cryptocompare.com/data/price?'
+      axios.get(singlePriceUrl, {
+        params: {
+          fsym: 'BNB',
+          tsyms: 'USD',
+        }
+      })
+        .then(response => {
+          price = response.data.USD
+          return dummy(price)
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+    }
+
+    var coinPrice = 0
+
+    function dummy(price) {
+      coinPrice = price.toFixed(2)
+      previousPrice = document.getElementById('price').textContent
+      previousPrice = Number(previousPrice)
+      if (coinPrice > previousPrice) {
+        document.getElementById('price').innerHTML = `<span style="background-color: green">${coinPrice}</span>`
+      }
+      else if (coinPrice < previousPrice) {
+        document.getElementById('price').innerHTML = `<span style="background-color: red">${coinPrice}</span>`
+      }
+      else {
+        document.getElementById('price').innerHTML = coinPrice
+      }
+
+    }
+    setInterval(() => {
+      getBNBSinglePrice()
+    }, 3000);
+
+    var coinInfoUrl = 'https://min-api.cryptocompare.com/data/all/coinlist?'
+    function getInfo(){
+          axios.get(coinInfoUrl, {
+            params: {
+              fsym: 'BNB'
+            }
+          })
+            .then(response => {
+              var accessData = response.data.Data['BNB']
+              var imageurl = accessData.ImageUrl
+              var assetWebsite = accessData.AssetWebsiteUrl
+              var whitepaper = accessData.AssetWhitepaperUrl
+              var coinName = accessData.CoinName
+              var proofType = accessData.ProofType
+              var symbol = accessData.Symbol
+              generateTopDetails(coinName, symbol)
+              generatePrice()
+              generateEtc(assetWebsite, whitepaper, proofType)
+              generateBuySell()
+            })
+            .catch(error => {
+              console.log(error.message);
+            });
+        }
+    getInfo()
+    function generateBuySell() {
+      document.getElementById('buysellid').innerHTML = `
+      <div>
+        <form action="BNB/buy" methods="POST">
+          <small>Quantity</small><input name="buyqty" type="text" placeholder="Quantity" style="margin-left: 10px; margin-right:10px"></input></small>
+          <small><input type="submit" id="buy" class="btn btn-primary" value="Buy"></small>
+        </form>
+
+        <form action="BNB/sell" methods="POST">
+          <small>Quantity</small><input name="sellqty" type="text" placeholder="Quantity" style="margin-left: 10px; margin-right:10px"></input></small>
+          <small><input type="submit" id="sell" class="btn btn-primary" value="Sell"></small>
+        </form>
+
+        <form action="BNB/buyorder" methods="POST">
+          <small>Quantity</small><input name="buyorderqty" type="text" placeholder="Quantity" style="margin-left: 10px; margin-right:10px"></input></small>
+          <small>Price</small><input name="buyorderprice" type="text" placeholder="Price" style="margin-left: 10px; margin-right:10px"></input></small>
+          <input type="submit" id="buy" class="btn btn-primary" value="Buy Limit Order"></small>
+        </form>
+          
+        <form action="BNB/sellorder" methods="POST">
+          <small>Quantity</small><input name="sellorderqty" type="text" placeholder="Quantity" style="margin-left: 10px; margin-right:10px"></input></small>
+          <small>Price</small><input name="sellorderprice" type="text" placeholder="Price" style="margin-left: 10px; margin-right:10px"></input></small>
+          <input type="submit" id="sellorder" class="btn btn-primary" value="Sell Limit Order"></form>
+          
+        <small>Current number of coins owned:<span id='qty'></span></small><br><br>
+        </form>
+      </div>`
+    }
+    function generatePrice()
+    {
+      document.getElementById('price').innerHTML = `
+      <h1 id="price" style="color:white; padding: 15px;">${getBNBSinglePrice()}</h1>
+      `
+    }
+    function generateTopDetails(coinName, symbol)
+    {
+      document.getElementById('topdetails').innerHTML = 
+      `<div style="margin:5px">
+        <div style="display: inline-flex; align-items: center; color: white">
+          <img src="static/images/coins/${symbol}.png" width="75" height="75">
+          <h1 id="coinName">${coinName} (${symbol})</h1>
+        </div>
+      `
+    }
+    function generateEtc(assetWebsite, whitepaper, proofType) {
+      document.getElementById('app').innerHTML = 
+      `<div style="display: inline-flex; align-items: center; color: white; padding: 5px;">
+          <a href="${assetWebsite}" target="blank">Asset Website </a>
+          <p style="margin: 0px">&nbsp|&nbsp</p>
+          <a href="${whitepaper}" target="blank">White paper</a>
+          <p style="margin: 0px">&nbsp|&nbsp</p>
+          <p style="margin: 0px">Proof-of-Stake</p>
+        </div>
+      `
+    }
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'
+    integrity='sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa'
+    crossorigin='anonymous'></script>
+</body>

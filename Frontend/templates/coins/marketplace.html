@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./images/logo.png">
+  <title>Marketplace</title>
+  <!-- Axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- <link rel="stylesheet" href="aos-by-red.css"> -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="{{url_for('static', filename='css/Light-Dark.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/homepageWithLogin.css')}}">
+  <!-- Bootstrap CSS -->
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' rel='stylesheet'
+    integrity='sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' crossorigin='anonymous'>
+  <script type="module" src="{{url_for('static', filename='js/coins/marketplace.mjs')}}"></script>
+  <script src="path/to/aos.js"></script>
+  <style>
+    body {
+      background-color: rgb(6, 17, 33);
+      color: #D1D0D1;
+      font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    th,
+    td,
+    table {
+      border: 1px solid white;
+      color: white
+    }
+
+    td,
+    th {
+      padding: 20px;
+      text-align: center
+    }
+
+    #newsresult {
+      border: 1px solid white
+    }
+  </style>
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-expand-lg bg-light sticky-top">
+    <div class="container-fluid" id="header">
+      <a class="navbar-brand text-white" href="/home"><img
+          src="{{url_for('static', filename='images/eevee_logo.png')}}" width="30" height="30" class="d-inline-block align-top" alt=""></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/marketplace">Marketplace 🛒</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/profile">Profile 👤</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/swap">Coin Swap 💳</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" id="logout">Sign-out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row py-3" style="margin-left: 10px;">
+      <div class="mcol-lg-7 col-md-12" >
+        <h3 class="words" style="color: #1199FA; padding-bottom:10px">
+          Welcome to the Marketplace!
+        </h3>
+        <p class="words">
+          Through this simulator, you will be able to apply the basics that you have learnt from our guides to be a
+          better trader. <br/>
+          Fret not, we tried to make it
+          less intimidating for beginners to join!
+        </p>
+
+        <h3 class="words" style="color: #1199FA; ">
+          How to start off?
+        </h3>
+        <ol>
+          <li style="font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+          font-size: 16px; font-weight: 300;">
+            &nbsp; As beginners, you can top up your wallet, using a test VISA card. You will be using USD as the standard currency.
+          </li>
+          <li style="font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+          font-size: 16px; font-weight: 300;">
+            &nbsp; To check for prices and trends, you can click on the 6 coins that are available on this page.
+          </li>
+          <li style="font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+          font-size: 16px; font-weight: 100;">
+            &nbsp; In the individual coins section, you can buy or sell the coins at the price that is being shown on the
+            browser at any point of time.
+          </li>
+          <li style="font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+          font-size: 16px; font-weight: 200;">
+            &nbsp; To check the real-time balance of your wallet, please click on profile in the navigation bar at the top. It will show the composition of coins and the total value of the wallet at that time.
+          </li>
+        </ol>
+        <div data-aos="flip-left" id="app">
+          <div class="row">
+            <div class="p-0 col-8">
+          <table style="margin-bottom:20px; margin-left:30px; margin-top:20px; ">
+            <tr>
+              <th style="color: #c6cacc;">Name</th>
+              <th style="color: #c6cacc;;">Icon</th>
+              <th style="color: #c6cacc;;">Price ($USD)</th>
+              <th style="color: #c6cacc;;">Asset Website</th>
+              <th style="color: #c6cacc;;">White Paper</th>
+              <th style="color: #c6cacc;;">Proof Type</th>
+            </tr>
+            <tr id="BNB">
+
+            </tr>
+            <tr id="BTC">
+
+            </tr>
+            <tr id="ADA">
+
+            </tr>
+            <tr id="DOGE">
+
+            </tr>
+            <tr id="ETH">
+
+            </tr>
+            <tr id="SOL">
+
+            </tr>
+          </table>
+          </div>
+          <div class="col-4">
+            <div data-aos="flip-left">
+              <h3 style="color: #1199FA;">List of Available Cryptocurrencies</h3>
+      
+              <ol id="cryptolinks" style="color:white">
+                <li>
+                  <a href="BTC"><span><img src="{{url_for('static', filename='images/coins/btc.png')}}" alt="BTC" class="img"></span>Bitcoin (BTC)</a>
+                </li>
+                <li>
+                  <a href="ETH"><span><img src="{{url_for('static', filename='images/coins/eth.png')}}" alt="ETH" class="img"></span>Ethereum (ETH)</a>
+                </li>
+                <li>
+                  <a href="BNB"><span><img src="{{url_for('static', filename='images/coins/bnb.png')}}" alt="BNB" class="img"></span>Binance (BNB)</a>
+                </li>
+                <li>
+                  <a href="DOGE"><span><img src="{{url_for('static', filename='images/coins/doge.png')}}" alt="Doge" class="img"></span>DOGE Coin (Doge)</a>
+                </li>
+                <li>
+                  <a href="SOL"><span><img src="{{url_for('static', filename='images/coins/sol.png')}}" alt="SOL" class="img"></span> Solana (SOL)</a>
+                </li>
+                <li>
+                  <a href="ADA"><span><img src="{{url_for('static', filename='images/coins/ada.png')}}" alt="ADA" class="img"></span>Cardano (ADA)</a>
+                </li>
+              </ol>
+              </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-left: 10px; text-align:center; color:red; font-weight:bold">
+    Disclaimer Alert:<br/>
+    <p style="margin-left:25%; max-width: 50%; align-self: center; font-size: 10px; text-align:center; color:red;">
+      This simulator is not meant to reflect exactly how one uses other platforms to trade. It is
+      just a start for users to trade without the use of real money and to learn
+      from their mistakes and experiences before entering this real crypto-trading scene. Thus, we only offer 6
+      coins up for the simulation and a limited time-frame graph for each coin so as to not intimidate new users.
+      If they want to know more about the trends, they can go to any crypto market websites like Binance to analyse
+      the trends there.
+    </p>
+  </p>
+  <footer class="text-center" style="font-size:12px">
+    <p class="text-muted mb-0 small">Copyright ©EEVEE Trading 2023</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: false,
+    });
+  </script>
+
+  <script>
+    const get_all_prices = "http://host.docker.internal:5000/price";
+    var coinInfoUrl = 'https://min-api.cryptocompare.com/data/all/coinlist?';
+
+    function getAllPrices () {
+      const response =
+            fetch(get_all_prices)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(response);
+                    if (data.code === 404) {
+                        // no response from CryptoCompare API
+                        this.message = data.message;
+                    } else {
+                      print("Sucessful retrieval!")
+                        // this.books = data.data.books;
+                    }
+                })
+                .catch(error => {
+                    // Errors when calling the service; such as network error, 
+                    // service offline, etc
+                    console.log(this.message + error);
+
+                });
+
+    }
+    
+    function generateRow(name, assetWebsite, whitepaper, coinName, proofType, symbol) {
+      console.log(symbol)
+      img = 'images/coins/' + symbol + '.png'
+      document.getElementById(name).innerHTML = `
+                          <td>
+                            <a href="${symbol}">${coinName} (${symbol})</a>
+                          </td>
+                          <td>
+                              <img src="${img}" alt="${symbol}" width="40" height="40">
+                          </td>
+                          <td id=${name}price> 
+                            ${getSinglePrice(name)}
+                          </td>
+                          <td>
+                              <a href="${assetWebsite}" target="blank">AssetWebsite</a>
+                          </td>
+                          <td>
+                              <a href="${whitepaper}" target="blank">Whitepaper</a>
+                          </td>
+                          <td>
+                              ${proofType}
+                          </td>`
+      setInterval(() => {
+        getSinglePrice(name)
+      }, 5000);
+
+    }
+    function getSinglePrice(name) {
+      var apiKey = 'b6d25f96f139bef5f924e987f529a010daf1b3f4faf934b6a02d671becf8ac3d'
+      singlePriceUrl = 'https://min-api.cryptocompare.com/data/price?'
+      axios.get(singlePriceUrl, {
+        params: {
+          fsym: name,
+          tsyms: 'USD',
+        }
+      })
+        .then(response => {
+          price = response.data.USD
+          return dummy(price, name)
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+    }
+
+
+    function dummy(price, name) {
+      coinPrice = price.toFixed(2)
+      previousPrice = document.getElementById(name + 'price').textContent
+      previousPrice = Number(previousPrice)
+      if (coinPrice > previousPrice) {
+        document.getElementById(name + 'price').innerHTML = `<span style="background-color: green">${coinPrice}</span>`
+      }
+      else if (coinPrice < previousPrice) {
+        document.getElementById(name + 'price').innerHTML = `<span style="background-color: red">${coinPrice}</span>`
+      }
+      else {
+        document.getElementById(name + 'price').innerHTML = coinPrice
+      }
+    }
+  </script>
+
+  <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'
+    integrity='sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa'
+    crossorigin='anonymous'></script>
+
+</body>

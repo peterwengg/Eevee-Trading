@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/Light-Dark.css')}}"> -->
+  <link rel="stylesheet" href="{{url_for('static', filename='css/homepageWithLogin.css')}}">
+  <!-- <link rel="icon" type="image/x-icon" href="./images/logo.png"> -->
+  <!-- <link rel="stylesheet" href="aos-by-red.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
+
+  <!-- Axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' rel='stylesheet'
+    integrity='sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' crossorigin='anonymous'>
+  <script src="{{url_for('static', filename='js/coins/profilepage.mjs')}}" type="module"></script>
+  <style>
+    body {
+      background-color: rgb(6, 17, 33);
+    }
+
+    h1 {
+      font-size: 70px
+    }
+
+    h3 {
+      font-size: 40px;
+    }
+
+    th,
+    td,
+    table {
+      margin-top: 10px;
+      border: 1px solid white
+    }
+
+    h5 a {
+      color: white
+    }
+
+    td,
+    th {
+      padding: 5px;
+      text-align: center;
+      color: white;
+    }
+
+
+h1 {
+    text-align: center;
+
+}
+
+
+
+
+.settings-subbox {
+    margin-bottom: 28px;
+}
+
+/* #settings-card {
+    margin: 50px 0px 50px 0px;
+    padding: 40px 30px 60px 30px;
+
+    outline: none;
+    border: none;
+
+    width:540px;
+    background-color: azure;
+} */
+
+#card-outline {
+    width: 100%;
+    background-color:#344c64;
+
+
+    display: flex;
+    justify-content: center;
+}
+
+#setting-icons {
+    height: 15px;
+    padding-right: 4px;
+    margin-bottom: 3px;
+    margin-left: 2px;
+}
+
+/* #editProfileModalPFP {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #344c64;
+    filter: brightness(50%);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    margin: auto;
+} */
+
+/* #editProfileModalPFPOverlay {
+    height: 30px;
+    width: 30px;
+    z-index:2;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    margin-top: 40px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-bottom: auto;
+} */
+
+  </style>
+
+</head>
+
+<body>
+  <nav id="nav" class="navbar navbar-expand-lg bg-light sticky-top">
+    <div class="container-fluid" id="header">
+      <a class="navbar-brand text-white" href="/home"><img
+          src="{{url_for('static', filename='images/eevee_logo.png')}}" width="30" height="30" class="d-inline-block align-top" alt=""></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/marketplace">Marketplace 🛒</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/profile">Profile 👤</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/swap">Coin Swap 💳</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" id="logout">Sign-out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="bigContainer" style="color:white; margin-left: 10px; margin-bottom: 50px;">
+    <div class="container settings-background" style="margin: 0; ">
+          <div class="row">
+            <h3 class="mt-2 words">Profile 👤</h3>
+            <hr>
+            <div class="col-lg-6 col-md-12" style="padding-top:20px">
+              
+              
+              <p style="font-weight: bold; font-size: larger; color: #1199FA;" class="words">User Details </p>
+              Email:<h4 style="padding-bottom:10px" class="words" id="email"></h4>
+              Registered on:<h4 style="padding-bottom:10px" class="words" id="registered"></h4>
+
+              <p style="font-weight: bold; font-size: larger; color: #1199FA; display: inline;" class="words">EeveePay Wallet 👛</p>
+             
+
+              <table>
+                <tr>
+                  <th>Coins Owned</th>
+                  <th>Quantity Owned</th>
+                  <th>Value/Coin (USD)</th>
+                  <th>Total Value (USD)</th>
+                </tr>
+                <tr>
+                  <td>USD</td>
+                  <td id="USDquantity"></td>
+                  <td id="USDprice">1</td>
+                  <td id="USDTotalValue"></td>
+                </tr>
+                <tr>
+                  <td>Binance Coin</td>
+                  <td id="BNBquantity"></td>
+                  <td id="BNBprice"></td>
+                  <td id="BNBTotalValue"></td>
+                </tr>
+                <tr>
+                  <td>Bitcoin</td>
+                  <td id="BTCquantity"></td>
+                  <td id="BTCprice"></td>
+                  <td id="BTCTotalValue"></td>
+                </tr>
+                <tr>
+                  <td>Cardano</td>
+                  <td id="ADAquantity"></td>
+                  <td id="ADAprice"></td>
+                  <td id="ADATotalValue"></td>
+                </tr>
+                <tr>
+                  <td>DOGE Coin</td>
+                  <td id="DOGEquantity"></td>
+                  <td id="DOGEprice"></td>
+                  <td id="DOGETotalValue"></td>
+                </tr>
+                <tr>
+                  <td>Ethereum</td>
+                  <td id="ETHquantity"></td>
+                  <td id="ETHprice"></td>
+                  <td id="ETHTotalValue"></td>
+                </tr>
+                <tr>
+                  <td>Solana</td>
+                  <td id="SOLquantity"></td>
+                  <td id="SOLprice"></td>
+                  <td id="SOLTotalValue"></td>
+                </tr>
+                <tr>
+                  <td colspan="3" style="text-align: center">Total Value</td>
+                  <td id="totalamount"></td>
+                </tr>
+              </table>
+              <a style="font-size: 12px; " class="mt-1 btn btn-primary" type="submit" href="/topup" id="topup">Top Up Wallet</a>  
+              {{error}}
+            
+              <!-- <a href="/topup" class="btn btn-primary" id="topup">Top Up Wallet Balance</a> -->
+              <!-- {{top_up_amt}} -->
+            </div>
+            <div class="mt-3 col-lg-6 col-md-12">
+              <p style="font-weight: bold; display: inline; font-size: larger; color: #1199FA; ">Top Up History 📜</p>
+              <!-- {{retrieved_transactions}} -->
+              <table id="topupdata">
+              </table>
+              <div class="mt-3 col-lg-6 col-md-12">
+                <p style="font-weight: bold; display: inline; font-size: larger; color: #1199FA; ">Transaction History 📜</p>
+              <table id="transactiondata">
+
+              </table>
+            
+            </div>
+           
+          </div>
+    </div>
+    </div>
+    <!-- CURRENT -->
+    <div class="mt-3 settings-subbox" style="color: white;">
+
+      <h3 href="#supportModal" data-bs-toggle="modal"><img id="setting-icons" src="  " alt="">&nbsp;Support</h3>
+      <hr>
+      <div class="col-lg-12 col-md-12" style="margin-left: 10px;">
+        <!-- <h4 class="words" style="margin-left: 10px; font-size: medium;">Find out more!</h4> -->
+        <div class="words" id="recommendation" style="padding-left:10px; font-size: 15px">
+        </div>
+      </div>
+  </div>
+
+    </div>
+    <footer class="text-center" style="font-size:12px">
+      <p class="text-muted mb-0 small">Copyright ©EEVEE Trading 2023</p>
+    </footer>
+  </div>
+
+  
+  <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 3000,
+      once: false,
+    });
+  </script> -->
+
+  <script>
+    function getUSDValue() {
+      var usdquantity = document.getElementById('USDquantity').textContent
+      var usdprice = 1
+      var usdvalue = document.getElementById('USDTotalValue')
+      var total = (Number(usdquantity) * usdprice).toFixed(2)
+      usdvalue.innerHTML = total
+    }
+
+
+
+    const coinArray = [
+      { "name": "Pancake Swap", "website": "https://pancakeswap.finance/" },
+      { "name": "Polygon", "website": "http://polygon.technology/" },
+      { "name": "Shiba Inu", "website": "https://shibatoken.com/" },
+      { "name": "Aptos", "website": "https://aptoslabs.com/" },
+      { "name": "Mask Network", "website": "https://mask.io/" },
+      { "name": "Pax Gold", "website": "https://www.paxos.com/paxgold/" },
+      { "name": "Zcash", "website": "https://z.cash/" },
+      { "name": "Waves", "website": "https://waves.tech/" },
+      { "name": "FileCoin", "website": "https://filecoin.io/" }
+    ]
+
+    var str = ``
+    function getCoinInfo() {
+      for (coin of coinArray) {
+        str += `<h5><a href ="${coin.website}" target='_blank'>${coin.name}</a></h5>`
+      }
+      document.getElementById('recommendation').innerHTML = str
+    }
+
+    function getBNBSinglePrice() {
+      var apiKey = 'b6d25f96f139bef5f924e987f529a010daf1b3f4faf934b6a02d671becf8ac3d'
+      singlePriceUrl = 'https://min-api.cryptocompare.com/data/price?'
+      axios.get(singlePriceUrl, {
+        params: {
+          fsym: 'BNB',
+          tsyms: 'USD',
+        }
+      })
+        .then(response => {
+          price = response.data.USD
+          return dummy(price, 'BNB')
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+    }
+
+    function getBTCSinglePrice() {
+      var apiKey = 'b6d25f96f139bef5f924e987f529a010daf1b3f4faf934b6a02d671becf8ac3d'
+      singlePriceUrl = 'https://min-api.cryptocompare.com/data/price?'
+      axios.get(singlePriceUrl, {
+        params: {
+          fsym: 'BTC',
+          tsyms: 'USD',
+        }
+      })
+        .then(response => {
+          price = response.data.USD
+          return dummy(price, 'BTC')
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+    }
+
+    function getADASinglePrice() {
+      var apiKey = 'b6d25f96f139bef5f924e987f529a010daf1b3f4faf934b6a02d671becf8ac3d'
+      singlePriceUrl = 'https://min-api.cryptocompare.com/data/price?'
+      axios.get(singlePriceUrl, {
+        params: {
+          fsym: 'ADA',
+          tsyms: 'USD',
+        }
+      })
+        .then(response => {
+          price = response.data.USD
+          return dummy(price, 'ADA')
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+    }
+
+    function getDOGESinglePrice() {
+      var apiKey = 'b6d25f96f139bef5f924e987f529a010daf1b3f4faf934b6a02d671becf8ac3d'
+      singlePriceUrl = 'https://min-api.cryptocompare.com/data/price?'
+      axios.get(singlePriceUrl, {
+        params: {
+          fsym: 'DOGE',
+          tsyms: 'USD',
+        }
+      })
+        .then(response => {
+          price = response.data.USD
+          return dummy(price, 'DOGE')
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+    }
+
+    function getETHSinglePrice() {
+      var apiKey = 'b6d25f96f139bef5f924e987f529a010daf1b3f4faf934b6a02d671becf8ac3d'
+      singlePriceUrl = 'https://min-api.cryptocompare.com/data/price?'
+      axios.get(singlePriceUrl, {
+        params: {
+          fsym: 'ETH',
+          tsyms: 'USD',
+        }
+      })
+        .then(response => {
+          price = response.data.USD
+          return dummy(price, 'ETH')
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+    }
+
+    function getSOLSinglePrice() {
+      var apiKey = 'b6d25f96f139bef5f924e987f529a010daf1b3f4faf934b6a02d671becf8ac3d'
+      singlePriceUrl = 'https://min-api.cryptocompare.com/data/price?'
+      axios.get(singlePriceUrl, {
+        params: {
+          fsym: 'SOL',
+          tsyms: 'USD',
+        }
+      })
+        .then(response => {
+          price = response.data.USD
+          return dummy(price, 'SOL')
+        })
+        .catch(error => {
+          console.log(error.message);
+        });
+    }
+
+    function dummy(price, name) {
+      coinPrice = price.toFixed(2)
+      previousPrice = document.getElementById(name + 'price').textContent
+      quantity = document.getElementById(name + 'quantity').textContent
+      totalValue = (Number(quantity) * Number(coinPrice)).toFixed(2)
+      if (coinPrice > previousPrice) {
+        document.getElementById(name + 'price').innerHTML = `<span style="background-color: green">${coinPrice}</span>`
+        document.getElementById(name + 'TotalValue').innerHTML = `<span style="background-color: green">${totalValue}</span>`
+      }
+      else if (coinPrice < previousPrice) {
+        document.getElementById(name + 'price').innerHTML = `<span style="background-color: red">${coinPrice}</span>`
+        document.getElementById(name + 'TotalValue').innerHTML = `<span style="background-color: red">${totalValue}</span>`
+      }
+      else {
+        document.getElementById(name + 'price').innerHTML = `<span>${coinPrice}</span>`
+        document.getElementById(name + 'TotalValue').innerHTML = `<span>${totalValue}</span>`
+      }
+
+    }
+    function getTotal() {
+      var totalada = Number(document.getElementById('ADATotalValue').textContent)
+      var totalbtc = Number(document.getElementById('BTCTotalValue').textContent)
+      var totalbnb = Number(document.getElementById('BNBTotalValue').textContent)
+      var totalsol = Number(document.getElementById('SOLTotalValue').textContent)
+      var totaldoge = Number(document.getElementById('DOGETotalValue').textContent)
+      var totaleth = Number(document.getElementById('ETHTotalValue').textContent)
+      var totalusd = Number(document.getElementById('USDTotalValue').textContent)
+      var totalbnb = Number(document.getElementById('BNBTotalValue').textContent)
+      var total = (totalada + totalbtc + totalbnb + totalsol + totaldoge + totalusd + totaleth).toFixed(2)
+
+      var previousTotal = Number(document.getElementById('totalamount').textContent)
+      if (total > previousTotal) {
+        document.getElementById('totalamount').innerHTML = `<span style="background-color: green">${total}</span>`
+      }
+      else if (total < previousTotal) {
+        document.getElementById('totalamount').innerHTML = `<span style="background-color: red">${total}</span>`
+      }
+      else {
+        document.getElementById('totalamount').innerHTML = `<span>${total}</span>`
+      }
+    }
+  </script>
+  
+
+  <script>
+    getCoinInfo()
+    setTimeout(() => {
+      getUSDValue()
+        ;
+    }, 1000);
+    setTimeout(() => {
+      getTotal()
+        ;
+    }, 1000);
+    setTimeout(() => {
+      getBNBSinglePrice()
+        ;
+    }, 1000);
+
+    setTimeout(() => {
+      getBTCSinglePrice()
+        ;
+    }, 1000);
+
+    setTimeout(() => {
+      getADASinglePrice()
+        ;
+    }, 1000);
+
+    setTimeout(() => {
+      getETHSinglePrice()
+        ;
+    }, 1000);
+
+    setTimeout(() => {
+      getDOGESinglePrice()
+        ;
+    }, 1000);
+
+    setTimeout(() => {
+      getSOLSinglePrice()
+        ;
+    }, 1000);
+
+    setInterval(() => {
+      getUSDValue()
+        ;
+    }, 1000);
+    setInterval(() => {
+      getTotal()
+    }, 500);
+    setInterval(() => {
+      getBNBSinglePrice()
+    }, 1000);
+    setInterval(() => {
+      getBTCSinglePrice()
+    }, 1000);
+    setInterval(() => {
+      getADASinglePrice()
+    }, 1000);
+    setInterval(() => {
+      getDOGESinglePrice()
+    }, 1000);
+    setInterval(() => {
+      getETHSinglePrice()
+    }, 1000);
+    setInterval(() => {
+      getSOLSinglePrice()
+    }, 1000);
+
+  </script>
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <script>
+    const checkout_public_key = '{{checkout_public_key}}';
+    const checkout_session_id = '{{checkout_session_id}}';
+  </script>
+  
+  <script src="{{ url_for('static', filename='js/script-no-ajax.mjs') }}"></script>
+  <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'
+    integrity='sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa'
+    crossorigin='anonymous'></script>
+
+</body>

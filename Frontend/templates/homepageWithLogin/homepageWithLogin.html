@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="aos-by-red.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <!-- Bootstrap CSS -->
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' rel='stylesheet'
+    integrity='sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' crossorigin='anonymous'>
+  <script type="module" src="{{url_for('static', filename='js/homepageWithLogin/homepage.mjs')}}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="icon" type="image/x-icon" href="static/images/logo.png">
+  <title>Home</title>
+  <!--rotating scroll css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='/css/homepageWithLogin.css')}}">
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-expand-lg bg-dark sticky-top">
+    <div class="container-fluid" id="header">
+      <a class="navbar-brand text-white" href="/home"><img src="{{url_for('static', filename='images/eevee_logo.png')}}" width="30"
+          height="30" class="d-inline-block align-top" alt=""></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/marketplace">Marketplace 🛒</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/profile">Profile 👤</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/swap">Coin Swap 💳</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" id="logout" href="/login">Sign-out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- New Section -->
+  <div class="cube" data-aos="fade-up" style="height:100vh;  margin-bottom: 10px; padding-bottom: 0;">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-3"></div>
+        <div class="text-center text-white col-6">
+        
+          <h1 class="mt-5 mb-2" style="font-size: 50px; font-weight: bold;" >EEVEE Trading™</h1>
+          <h4 class="css-ubjhr1">SECURELY BUY, SELL and TRACK your Cryptocurrencies</h4>
+          <h2 class="css-f80gmk" style="font-size: 30px; margin-bottom: 15px; padding: 5px;">Smol Leading Cryptocurrency Platform</h2>
+          
+          <div class="css-1bgr6eh" style=""><div class="css-j47rif"><img width="100%" style="display: inline" height="95%" src="{{url_for('static', filename='images/eevee_logo.png')}}"></div></div>
+          <div style="margin-left: 20px; margin-top: 20px;">
+            <div class="css-rdv4nm">
+              <div class="mt-3 css-15wefea">
+                <div class="css-uhzmmo">
+                  <div class="css-1hqtbmc">
+                    <svg width="1em" height="1em" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.76 2.366l-6.48 6.4A.828.828 0 015.7 9a.828.828 0 01-.581-.234l-3.879-4a.785.785 0 010-1.132.836.836 0 011.161 0L5.7 7.068l5.9-5.834a.836.836 0 011.16 0c.321.313.321.82 0 1.132z" fill="currentColor"></path><path d="M12.76 2.366l-6.48 6.4A.828.828 0 015.7 9a.828.828 0 01-.581-.234l-3.879-4a.785.785 0 010-1.132.836.836 0 011.161 0L5.7 7.068l5.9-5.834a.836.836 0 011.16 0c.321.313.321.82 0 1.132" stroke="currentColor" stroke-width="0.5"></path></svg></div></div>
+                      <div style="" class="css-9rqlnh">A done and dusted<span class="css-14139b2"> ESD project </span>that has us gones</div></div>
+
+              <div class="css-15wefea">
+                <div class="css-uhzmmo">
+                  <div class="css-1hqtbmc">
+                    <svg width="1em" height="1em" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.76 2.366l-6.48 6.4A.828.828 0 015.7 9a.828.828 0 01-.581-.234l-3.879-4a.785.785 0 010-1.132.836.836 0 011.161 0L5.7 7.068l5.9-5.834a.836.836 0 011.16 0c.321.313.321.82 0 1.132z" fill="currentColor"></path><path d="M12.76 2.366l-6.48 6.4A.828.828 0 015.7 9a.828.828 0 01-.581-.234l-3.879-4a.785.785 0 010-1.132.836.836 0 011.161 0L5.7 7.068l5.9-5.834a.836.836 0 011.16 0c.321.313.321.82 0 1.132" stroke="currentColor" stroke-width="0.5"></path></svg></div></div>
+                      <div style="" class="css-9rqlnh">Trusted by <span class="css-14139b2">ESD profs</span> world-wide</div></div>
+                      <div class="css-15wefea"><div class="css-uhzmmo"><div class="css-1hqtbmc"><svg width="1em" height="1em" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.76 2.366l-6.48 6.4A.828.828 0 015.7 9a.828.828 0 01-.581-.234l-3.879-4a.785.785 0 010-1.132.836.836 0 011.161 0L5.7 7.068l5.9-5.834a.836.836 0 011.16 0c.321.313.321.82 0 1.132z" fill="currentColor"></path><path d="M12.76 2.366l-6.48 6.4A.828.828 0 015.7 9a.828.828 0 01-.581-.234l-3.879-4a.785.785 0 010-1.132.836.836 0 011.161 0L5.7 7.068l5.9-5.834a.836.836 0 011.16 0c.321.313.321.82 0 1.132" stroke="currentColor" stroke-width="0.5"></path></svg></div></div>
+                      <div class="css-9rqlnh">Leader in <span class="css-14139b2">regulatory compliance</span> and <span class="css-14139b2">security certifications</span></div></div><div class="css-15wefea"><div class="css-uhzmmo"><div class="css-1hqtbmc"><svg width="1em" height="1em" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.76 2.366l-6.48 6.4A.828.828 0 015.7 9a.828.828 0 01-.581-.234l-3.879-4a.785.785 0 010-1.132.836.836 0 011.161 0L5.7 7.068l5.9-5.834a.836.836 0 011.16 0c.321.313.321.82 0 1.132z" fill="currentColor"></path><path d="M12.76 2.366l-6.48 6.4A.828.828 0 015.7 9a.828.828 0 01-.581-.234l-3.879-4a.785.785 0 010-1.132.836.836 0 011.161 0L5.7 7.068l5.9-5.834a.836.836 0 011.16 0c.321.313.321.82 0 1.132" stroke="currentColor" stroke-width="0.5"></path></svg></div></div>
+                      <div class="css-9rqlnh">The most comprehensive platform for <span class="css-14139b2">noobs</span> and <span class="css-14139b2">crypto buds</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+
+    </div>
+
+
+      <!-- New Section -->
+    <div data-aos="fade-up" style="margin-bottom: 10px; margin-top: 0; padding-top: 0;" class='css-q3nlj8' >
+      <div class="css-1jxx14f">
+        <div class="css-14n0k9g"><div style="display:block"><div style="opacity: 1; transform: none;"><h4 class="css-ubjhr1" style="font-size:40px">OUR VISION</h4></div></div>
+       </div>
+  
+              <p class="css-9rqlnh MB-43" style="padding-bottom:40px; text-align: center; font-size: 14px">We know that cryptocurrency trading can be daunting to enter for many people especially when it is such a
+                volatile market. Thus we aim to <span class="css-14139b2">equip beginners with sufficient knowledge</span> to take the first step towards crypto
+              trading as well as to help them understand the gains and pains of crypto trading through our <span class="css-14139b2">simplified
+                cryptocurrency trading simulator</span> for users to get hands-on practice. </p>
+    
+          <div style="display:block">
+            <div style="opacity: 1; transform: none;">
+              <div class="css-1bgr6eh">
+                <div class="css-j47rif"><img width="100%" height="100%" src="{{url_for('static', filename='images/eevee_vision.png')}}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:block">
+          <div style="opacity: 1; transform: translateY(50px) translateZ(0px);">
+            <div class="css-1exq1ua">
+              <div class="css-hxx6wg">
+                <div class="css-vyilow">
+                  <h5 class="css-mgtp8m" style="font-size: 30px">Founded in</h5>
+                  <h2 class="css-1wp6wfr" style="font-size: 30px">2023</h2>
+                </div>
+                <div class="css-vyilow">
+                  <h5 class="css-mgtp8m" style="font-size: 30px">Users</h5>
+                  <h2 class="css-1wp6wfr" style="font-size: 30px">ESD Students & Profs</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+      </div>
+    </div>
+    
+      <!-- New Section -->
+    <div data-aos="fade-up" style="margin-bottom: 10px;">
+      <div class="css-s5rpcw">
+          <video title="cryptocurrency" autoplay muted loop playsinline class="css-z9g80j">
+        <source src="{{url_for('static', filename='images/crypto.mp4')}}" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video>
+
+        <div class="css-1h25iwx"><div class="css-ieh3s3"><div style="display:block"><div style="opacity: 1; transform: none;"><h4 class="css-ubjhr1">EEVEE Trading Free Cards</h4></div></div><h2 class="css-kr3aec"><div class="css-t8u6ip"><div class="css-f80gmk"><div style="transform: translateY(0%) translateZ(0px);">The only cards you need</div></div></div></h2><div style="display:block"><div style="opacity: 1; transform: none;"><div class="css-uoqeu6">Enjoy the various test cards available for you to try in this simulator app<br><br><strong>NOTE: This is mainly for topping up your wallet.</strong></div></div></div><div style="display:block"><div style="opacity: 1; transform: none;"><a target="_blank" href="https://stripe.com/docs/testing">
+          <button style="border-color: #061121; background-color:rgb(6, 17, 33)" class="btn btn-primary"><div class="css-b90e7t">Choose Your Card</div>
+          </button></a>
+          </div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center" style="font-size:12px">
+      <p class="text-muted mb-0 small">Copyright ©EEVEE Trading 2023</p>
+    </footer>
+
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+      <script>
+        AOS.init({
+          duration: 3000,
+          once: false,
+        });
+      </script>
+  <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'
+    integrity='sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa'
+    crossorigin='anonymous'></script>
+</body>
+
+</html>
+
+<style>
+/* @media screen and (min-width: 768px) */
+button:hover {
+  transform: translateY(-2px);
+}
+/* for vision */
+.css-q3nlj8 {
+    box-sizing: border-box;
+    margin: 0;
+    margin-top: 0;
+    padding-top: 0;
+    background-color: #061121;
+    padding-bottom: 80px;
+}
+
+.css-j47rif {
+    box-sizing: border-box;
+    margin: 0;
+    width: 321px;
+}
+
+.css-1exq1ua {
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 64px;
+}
+
+.css-hxx6wg {
+    box-sizing: border-box;
+    margin: 0;
+    -webkit-box-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    margin: -16px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.css-vyilow {
+    box-sizing: border-box;
+    margin: 0;
+    text-align: center;
+    padding: 16px;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.css-mgtp8m {
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 8px;
+    color: #F4F4F4;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 17px;
+    line-height: 130%;
+    letter-spacing: 0em;
+    font-weight: 600;
+}
+
+.css-1wp6wfr {
+    box-sizing: border-box;
+    margin: 0;
+    color: #1199FA;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 42px;
+    line-height: 115%;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+}
+
+.css-mgtp8m {
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 8px;
+    color: #F4F4F4;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 17px;
+    line-height: 130%;
+    letter-spacing: 0em;
+    font-weight: 600;
+}
+
+.css-1bu1gb4 {
+    box-sizing: border-box;
+    margin: 0;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.css-1bgr6eh {
+    background-image: url('/images/grass_bg.png');
+    box-sizing: border-box;
+    margin: 0;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.css-t8u6ip {
+    box-sizing: border-box;
+    margin: 0;
+    position: relative;
+}
+
+.css-f80gmk {
+    box-sizing: border-box;
+    margin: 0px;
+    overflow: hidden;
+}
+
+
+.css-gavgb {
+    box-sizing: border-box;
+    margin: 0px;
+    opacity: 0;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+}
+
+.css-1ezjuvy {
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+    color: #F4F4F4;
+    max-width: inherit;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 42px;
+    line-height: 115%;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+}
+
+.css-14n0k9g {
+    box-sizing: border-box;
+    margin: 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.css-1jxx14f {
+    box-sizing: border-box;
+    margin: 0;
+    max-width: 1128px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* for cards */
+.css-b90e7t {
+    box-sizing: border-box;
+    margin: 0;
+    margin-top: -4.25px;
+    -webkit-transform: translateY(4.25px);
+    -moz-transform: translateY(4.25px);
+    -ms-transform: translateY(4.25px);
+    transform: translateY(4.25px);
+}
+
+.css-ve18x2 {
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: 16px;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+}
+
+
+.css-uoqeu6 {
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 64px;
+    color: #F4F4F4;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 16px;
+    line-height: 135%;
+    letter-spacing: 0em;
+    font-weight: 400;
+}
+
+.css-1lnogg5 {
+    box-sizing: border-box;
+    margin: 0;
+    width: auto;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 17px;
+    line-height: 1em;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+    white-space: nowrap;
+    padding-left: 24px;
+    padding-right: 24px;
+    height: 58px;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    border-radius: 4px;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    border-color: #F4F4F4;
+    background-color: transparent;
+    color: white;
+}
+
+.css-f80gmk {
+    box-sizing: border-box;
+    margin: 0px;
+    overflow: hidden;
+}
+
+.css-gavgb {
+    box-sizing: border-box;
+    margin: 0px;
+    opacity: 0;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+}
+
+.css-t8u6ip {
+    box-sizing: border-box;
+    margin: 0;
+    position: relative;
+}
+
+.css-kr3aec {
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 32px;
+    color: #F4F4F4;
+    max-width: inherit;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 42px;
+    line-height: 115%;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+}
+
+.css-ubjhr1 {
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 16px;
+    color: #1199FA;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 14px;
+    line-height: 125%;
+    letter-spacing: 0.03em;
+    font-weight: bold;
+}
+
+.css-ieh3s3 {
+    box-sizing: border-box;
+    margin: 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 462px;
+}
+
+.css-1h25iwx {
+    box-sizing: border-box;
+    margin: 0;
+    position: relative;
+    max-width: 1128px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.css-s5rpcw {
+    box-sizing: border-box;
+    margin: 0;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 642px;
+    overflow: hidden;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.css-z9g80j {
+    box-sizing: border-box;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+    object-fit: cover;
+}
+
+.css-rdv4nm {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.css-1hqtbmc {
+    box-sizing: border-box;
+    margin: 0;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    font-size: 12px;
+    color: #F4F4F4;
+}
+
+.css-14139b2 {
+    box-sizing: border-box;
+    margin: 0;
+    color: #1199FA;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 16px;
+    line-height: 135%;
+    letter-spacing: 0em;
+    font-weight: 400;
+}
+
+.css-uhzmmo {
+    box-sizing: border-box;
+    margin: 0;
+    margin-right: 16px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border-radius: 10px;
+    background-color: #1199FA;
+}
+
+.css-9rqlnh {
+    box-sizing: border-box;
+    margin: 0;
+    text-align: left;
+    color: #D1D0D1;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 16px;
+    line-height: 135%;
+    letter-spacing: 0em;
+    font-weight: 400;
+    margin-top: -4px;
+    -webkit-transform: translateY(4px);
+    -moz-transform: translateY(4px);
+    -ms-transform: translateY(4px);
+    transform: translateY(4px);
+}
+
+
+.css-15wefea {
+    box-sizing: border-box;
+    margin: 0;
+    -webkit-align-items: flex-start;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.css-ubjhr1{
+    box-sizing: border-box;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #1199FA;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 14px;
+    line-height: 125%;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.css-1bgr6eh {
+    box-sizing: border-box;
+    margin: 0;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.css-14n0k9g {
+    box-sizing: border-box;
+    margin: 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.css-1ezjuvy {
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+    color: #F4F4F4;
+    max-width: inherit;
+    white-space: pre-wrap;
+    font-family: Acumin Pro,acumin-pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 42px;
+    line-height: 115%;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+}
+
+.css-f80gmk {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.css-1jxx14f {
+    box-sizing: border-box;
+    margin: 0;
+    max-width: 1128px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+
+.css-14n0k9g {
+    box-sizing: border-box;
+    margin: 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.css-q3nlj8 {
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #061121;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.css-gavgb {
+    box-sizing: border-box;
+    margin: 0px;
+    opacity: 0;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+}
+
+.css-t8u6ip {
+    box-sizing: border-box;
+    margin: 0;
+    position: relative;
+}
+</style>
